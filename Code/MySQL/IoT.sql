@@ -5,7 +5,7 @@
 -- | \__/\ | |  __/ (_| | ||  __/ | |/ /| |_/ /
 --  \____/_|  \___|\__,_|\__\___| |___/ \____/ 
 
-/-- Para que no nos pida borrarla al correr si ya existe
+-- Para que no nos pida borrarla al correr si ya existe
 DROP DATABASE IF EXISTS IoT;
 CREATE DATABASE IoT;
 
@@ -31,27 +31,31 @@ CREATE TABLE passcodes(
 
 CREATE TABLE locks(
     id_lock int primary key,
-    battery_level int  CHECK (battery_level > 0 AND battery_level <100),
-    status enum("Open", "Closed")
+    status enum("Open", "Closed"),
+    battery_level int,
+    CHECK (battery_level > 0 AND battery_level <100)
 );
 
 CREATE TABLE thermostats(
     id_thermostat int primary key,
-    temperature int ,
+    temperature int,
     status enum("Working", "Sleep", "Error"),
-    battery_level int  CHECK (battery_level > 0 AND battery_level <100)
-);
+    battery_level int,
+    CHECK (battery_level > 0 AND battery_level < 100)
+);   
 
 CREATE TABLE cameras(
     id_camera int primary key,
     status enum("Movement", "Static"),
-    battery_level int CHECK (battery_level > 0 AND battery_level <100)
+    battery_level int,
+    CHECK (battery_level > 0 AND battery_level <100)
 );
 
 CREATE TABLE lights(
     id_light int primary key,
     status enum("On", "Off"),
-    intensity int CHECK (intensity > 0 AND intensity <255)
+    intensity int,
+    CHECK (intensity > 0 AND intensity <= 255)
 );
 
 -- ______     _       _   _                 
@@ -65,62 +69,56 @@ CREATE TABLE lights(
 CREATE TABLE light_control(
     time_sec int,
     id_room int,
-    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     id_light int,
+    UNIQUE (id_light),
     FOREIGN KEY (id_light) REFERENCES lights(id_light),
-    UNIQUE (id_light)
+    FOREIGN KEY (id_room) REFERENCES rooms(id_room)
 );
 
 CREATE TABLE temperature_control(
     time_sec TIMESTAMP,
     id_room int,
-    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     id_thermostat int,
+    UNIQUE (id_thermostat),
     FOREIGN KEY (id_thermostat) REFERENCES thermostats(id_thermostat),
-    UNIQUE (id_thermostat)
+    FOREIGN KEY (id_room) REFERENCES rooms(id_room)
 );
 
 CREATE TABLE security_control(
     time_sec TIMESTAMP,
     id_room int, 
-    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     id_camera int,
+    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     FOREIGN KEY (id_camera) REFERENCES cameras(id_camera)
 );
 
 CREATE TABLE alert(
     time_sec TIMESTAMP,
-    status enum("Resolved", "Unresolved"),
     messagess varchar(200),
     origin varchar(100),
     id_room int,
+    status enum("Resolved", "Unresolved"),
     FOREIGN KEY (id_room) REFERENCES rooms(id_room)
 );
 -- NO NECESARIA
 CREATE TABLE access_control(
     entry_time TIMESTAMP,
-    
     id_room int,
-    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
-
     id_person int,
-    FOREIGN KEY (id_person) REFERENCES users(id_person)
-    
+    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
+    FOREIGN KEY (id_person) REFERENCES users(id_person)  
 );
 
 CREATE TABLE allowed_persons(
     id_room int,
-    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
-
     id_person int,
-    FOREIGN KEY (id_person) REFERENCES users(id_person),
-
     id_passcode int,
-    FOREIGN KEY (id_passcode) REFERENCES passcodes(id_passcode),
-    
     id_lock int,
+    UNIQUE (id_lock),
+    FOREIGN KEY (id_passcode) REFERENCES passcodes(id_passcode),
+    FOREIGN KEY (id_person) REFERENCES users(id_person),
     FOREIGN KEY (id_lock) REFERENCES locks(id_lock),
-    UNIQUE (id_lock)
+    FOREIGN KEY (id_room) REFERENCES rooms(id_room)
 );
 
 
