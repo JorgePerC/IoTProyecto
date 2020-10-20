@@ -7,6 +7,6 @@ Construir un sistema de Iot
 
 
 Pendientes:
-* [] Cambiar diagrama entidad relación
+- [] Cambiar diagrama entidad relación
 
-* [] Añadir resto de la documentación al Git
+- [] Añadir resto de la documentación al Git
