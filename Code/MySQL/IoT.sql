@@ -5,10 +5,11 @@
 -- | \__/\ | |  __/ (_| | ||  __/ | |/ /| |_/ /
 --  \____/_|  \___|\__,_|\__\___| |___/ \____/ 
 
+/-- Para que no nos pida borrarla al correr si ya existe
+DROP DATABASE IF EXISTS IoT;
+CREATE DATABASE IoT;
 
-CREATE DATABASE IoT
-
-USE IoT
+USE IoT;
 
 CREATE TABLE rooms (
     id_room int primary key,
@@ -36,7 +37,7 @@ CREATE TABLE locks(
 
 CREATE TABLE thermostats(
     id_thermostat int primary key,
-    int temperature,
+    temperature int ,
     status enum("Working", "Sleep", "Error"),
     battery_level int  CHECK (battery_level > 0 AND battery_level <100)
 );
@@ -50,7 +51,7 @@ CREATE TABLE cameras(
 CREATE TABLE lights(
     id_light int primary key,
     status enum("On", "Off"),
-    intensity int CHECK (battery_level > 0 AND battery_level <255)
+    intensity int CHECK (intensity > 0 AND intensity <255)
 );
 
 -- ______     _       _   _                 
@@ -66,7 +67,7 @@ CREATE TABLE light_control(
     id_room int,
     FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     id_light int,
-    FOREIGN KEY (id_light) REFERENCES light(id_light),
+    FOREIGN KEY (id_light) REFERENCES lights(id_light),
     UNIQUE (id_light)
 );
 
@@ -75,7 +76,7 @@ CREATE TABLE temperature_control(
     id_room int,
     FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     id_thermostat int,
-    FOREIGN KEY (id_thermostat) REFERENCES thermostat(id_thermostat),
+    FOREIGN KEY (id_thermostat) REFERENCES thermostats(id_thermostat),
     UNIQUE (id_thermostat)
 );
 
@@ -84,7 +85,7 @@ CREATE TABLE security_control(
     id_room int, 
     FOREIGN KEY (id_room) REFERENCES rooms(id_room),
     id_camera int,
-    FOREIGN KEY (id_camara) REFERENCES cameras(id_camera),
+    FOREIGN KEY (id_camera) REFERENCES cameras(id_camera)
 );
 
 CREATE TABLE alert(
@@ -93,7 +94,7 @@ CREATE TABLE alert(
     messagess varchar(200),
     origin varchar(100),
     id_room int,
-    FOREIGN KEY (id_room) REFERENCES rooms(id_room),
+    FOREIGN KEY (id_room) REFERENCES rooms(id_room)
 );
 -- NO NECESARIA
 CREATE TABLE access_control(
@@ -103,7 +104,7 @@ CREATE TABLE access_control(
     FOREIGN KEY (id_room) REFERENCES rooms(id_room),
 
     id_person int,
-    FOREIGN KEY (id_person) REFERENCES users(id_person),
+    FOREIGN KEY (id_person) REFERENCES users(id_person)
     
 );
 
@@ -119,7 +120,7 @@ CREATE TABLE allowed_persons(
     
     id_lock int,
     FOREIGN KEY (id_lock) REFERENCES locks(id_lock),
-    UNIQUE (id_lock),
+    UNIQUE (id_lock)
 );
 
 
@@ -136,8 +137,8 @@ El describe no dice si una relación es foránea
 ALTER TABLE light_control MODIFY id_light int unique;
 */
 
-SHOW INDEX this_table_column;
-SHOW CREATE TABLE table_name;
+-- SHOW INDEX this_table_column;
+-- SHOW CREATE TABLE table_name;
 
 --  _   _       _                 
 -- | | | |     | |                
