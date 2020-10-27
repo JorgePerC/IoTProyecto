@@ -11,33 +11,37 @@ CREATE DATABASE IoT;
 
 USE IoT;
 
+-- Ahora todas las bases básicas tienen autoincrement
+-- Esto puede causar cosas raras si estás en modo save = False
+-- Así que, ten cuidado, xd
+
 CREATE TABLE rooms (
-    id_room int primary key,
+    id_room int primary key NOT NULL AUTO_INCREMENT,
     name varchar(15),
     size enum ("Chico, mediano, Grande")
 );
 
 CREATE TABLE users (
-    id_person int primary key,
+    id_person int primary key NOT NULL AUTO_INCREMENT,
     name varchar(15),
     birth date
 );
 
 CREATE TABLE passcodes(
-    id_passcode int primary key,
+    id_passcode int primary key NOT NULL AUTO_INCREMENT,
     code varchar(15),
     expiration_date date
 );
 
 CREATE TABLE locks(
-    id_lock int primary key,
+    id_lock int primary key NOT NULL AUTO_INCREMENT,
     status enum("Open", "Closed"),
     battery_level int,
     CHECK (battery_level > 0 AND battery_level <100)
 );
 
 CREATE TABLE thermostats(
-    id_thermostat int primary key,
+    id_thermostat int primary key NOT NULL AUTO_INCREMENT,
     temperature int,
     status enum("Working", "Sleep", "Error"),
     battery_level int,
@@ -45,14 +49,14 @@ CREATE TABLE thermostats(
 );   
 
 CREATE TABLE cameras(
-    id_camera int primary key,
+    id_camera int primary key NOT NULL AUTO_INCREMENT,
     status enum("Movement", "Static"),
     battery_level int,
     CHECK (battery_level > 0 AND battery_level <100)
 );
 
 CREATE TABLE lights(
-    id_light int primary key,
+    id_light int primary key NOT NULL AUTO_INCREMENT,
     status enum("On", "Off"),
     intensity int,
     CHECK (intensity > 0 AND intensity <= 255)

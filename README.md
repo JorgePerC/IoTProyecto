@@ -11,6 +11,10 @@ Pendientes:
 
 - [] Añadir resto de la documentación al Git. (Completado parcialmente)
 
+- [] Levartar error al momento de dar consulta
+
+- [] Levartar error al momento de insertar datos
+
 ## Tips:
 
 Algunos tips para que puedas hacer esto funcionar :D
