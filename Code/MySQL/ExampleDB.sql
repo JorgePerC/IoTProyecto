@@ -6,10 +6,10 @@
 --  \____/_|  \___|\__,_|\__\___| |___/ \____/ 
 
 -- Para que no nos pida borrarla al correr si ya existe
-DROP DATABASE IF EXISTS IoT;
-CREATE DATABASE IoT;
+DROP DATABASE IF EXISTS ExampleDB;
+CREATE DATABASE ExampleDB;
 
-USE IoT;
+USE ExampleDB;
 
 -- Ahora todas las bases básicas tienen autoincrement
 -- Esto puede causar cosas raras si estás en modo save = False
