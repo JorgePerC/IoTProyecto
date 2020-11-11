@@ -31,3 +31,32 @@ comando en tu terminal: `<mysqldump -u root -p db_name > filename.sql>`
 
 ## Simulaciones de práctica:
 * Circuito *inserte nombre*: https://www.tinkercad.com/things/hm5OmSE75J4-funky-duup-crift/editel?sharecode=f3NmukVP7lTklpvBShQAqAebfXOkqBxCWmoH0VkgSJc
+
+## Objetivos del proyecto:
+
+### Requerimientos: 
+
+* El Arduino debe de mandar la siguiente información:
+    * RitmoCardiaco (análoga)
+    * Niveles de SaO2 en la sangre (analoga?)
+    * Número de usuario 
+
+* La computadora debe de:
+    * Recibir la información que el Arduino le manda
+    * Interpretarla
+    * Limpiarla
+    * Procesarla
+    * Publicar en la base de datos los resultados
+    * Funcionar como servidor local para el Dashboard
+
+### Dashborad inteligente:
+* Scatter plot
+* Promedio semanal del ritmo cardiaco
+
+### Diagrama entidad relación: 
+<img src="Documentación/DiagEntRel_Reto_IoT.jpg"
+     alt="Diagrama entidad relación Reto"
+     style="width: 80%; margin: 0 10%;"/>
+
+
+

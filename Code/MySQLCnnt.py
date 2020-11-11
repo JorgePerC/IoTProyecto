@@ -1,5 +1,6 @@
 # Librería descargada desde MySQL // NO desde pip 
 import mysql.connector
+from mysql.connector.locales.eng import client_error
 
 if __name__ == "__main__":
     try:
@@ -65,9 +66,15 @@ class DB:
     def getQuerryRes(self, query: str, param = ()):
         # If there are no parameters, we skip that param
         if (len(param) == 0):
-            self.cursor.execute(query)
+            try:
+                self.cursor.execute(query)
+            except mysql.connector.Error as err:
+                print(err)
         else:
-            self.cursor.execute(query, param) # (query, query_data) 
+            try:
+                self.cursor.execute(query, param) # (query, query_data) 
+            except mysql.connector.Error as err:
+                print(err)
         # self.cursor, aka, queryResult
         return self.cursor
 
@@ -87,12 +94,14 @@ class DB:
         # El [1:-1] es para que no aparezcan los corchetes "[]"
         query = "INSERT INTO {} ({})  VALUES ({});".format(table, columnas, str(values)[1:-1])
         print(query)
-        self.cursor.execute(query)
-
-        # Para que los datos se guarden
-        if self.save:
-            self.cnx.commit()
-
+        
+        try:
+            self.cursor.execute(query)
+            # Para que los datos se guarden
+            if self.save:
+                self.cnx.commit()
+        except mysql.connector.Error as err:
+            print(err)
     def delete(self):
         pass
 
@@ -100,10 +109,19 @@ class DB:
         query = "UPDATE {} as {}".format(table,  str(whereArgs)[1:-1])
         pass
 
+    def closeConnection(self):
+        try:
+            self.cnx.close()
+        except mysql.connector.Error as err:
+                print(err)
+
     def __del__(self):
         """
         Destructor for class database
         It only makes sure that MySQL
         gets close 
         """
-        self.cnx.close()
+        try:
+            self.cnx.close()
+        except mysql.connector.Error as err:
+                print(err)

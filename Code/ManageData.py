@@ -9,13 +9,13 @@ def createUser(db: object, name: str, lastName: str, age: int,
         return -1
     # Ver cómo hacer lo de la imagen
     if not 0 < avergage_SaO2 < 100:
-        print("Datos inválidos. average SaO2")
+        print("Datos inválidos. Average SaO2")
         return -1
     
     insert_User(db, [name, lastName, age, excercise, profilePic, avergage_SaO2])
 
 def insert_User(db: object, data: list):
-    db.insertData("Users", ["Name","Last_Name", "Age", "Excersice", "Profile_Img", "Average_SaO2"],
+    db.insertData("users", ["name","last_name", "age", "excersice", "Profile_Img", "average_SaO2"],
                      data)
 
 def inserReading_HR(db: object, data: list):
@@ -32,10 +32,20 @@ def sampleData_Time():
 
 def sampleData_SaO2():
     return [ random.randint(0, 5), sampleData_Time(), random.randint(75, 100)]
-    
 
-db =  DB("IoT", save = True)
+def createUsers(db):
+    createUser(db, "Jorge", "Pérez", 19, "Few", "imagen.jpg", 93)
+    print("Data insertado correctamente")
+    createUser(db, "Luis", "Fdz", 19, "Few", "imagen2.jpg", 95)
+    createUser(db, "Josue", "Mojica", 19, "Ocasional", "imagen3.jpg", 90)
+    createUser(db, "Mickey", "Mouse", 80, "Few", "imagen4.jpg", 92)
+    createUser(db, "Dr", "García", 39, "Proffesional", "imagen5.jpg", 97)  
 
-for _ in range(0,1000):
-    inserReading_HR(db, sampleData_HR())
-    inserReading_SaO2(db, sampleData_SaO2())
+db =  DB("IoT_proyecto", save = True)
+
+# createUsers(db)
+db.closeConnection()
+print("Acabo")
+# for _ in range(0,1000):
+#     inserReading_HR(db, sampleData_HR())
+#     inserReading_SaO2(db, sampleData_SaO2())
