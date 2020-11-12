@@ -122,6 +122,9 @@ class DB:
         gets close 
         """
         try:
+            # self.cursor.close()
+            print("Cerro1")
             self.cnx.close()
+            print("Cerro12")
         except mysql.connector.Error as err:
                 print(err)

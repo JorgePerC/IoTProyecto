@@ -19,10 +19,10 @@ def insert_User(db: object, data: list):
                      data)
 
 def inserReading_HR(db: object, data: list):
-    db.insertData("HR_Readings", ["User", "Time", "HR"], data)
+    db.insertData("HR_Readings", ["id_user", "time", "hr_reading"], data)
 
 def inserReading_SaO2(db: object, data: list):
-    db.insertData("SaO2_Readings", ["User", "Time", "SaO2"], data)
+    db.insertData("SaO2_Readings", ["id_user", "time", "sao2_reading"], data)
 
 def sampleData_HR():
     return [ random.randint(0, 5), sampleData_Time(), random.randint(60, 100)]
@@ -43,8 +43,8 @@ def createUsers(db):
 
 db =  DB("IoT_proyecto", save = True)
 
-# createUsers(db)
-db.closeConnection()
+createUsers(db)
+# db.closeConnection()
 print("Acabo")
 # for _ in range(0,1000):
 #     inserReading_HR(db, sampleData_HR())
