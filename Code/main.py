@@ -4,12 +4,13 @@
     # Josué Mojica - A01024035
 ## ITESM CSF Semestre Ago - Dic 2020s
 
+from flask import Flask
+app = Flask(__name__)
 
 
-
-
-
-
+@app.route("/")
+def hello_world():
+   return ("Hello, World!")
 
 
 
