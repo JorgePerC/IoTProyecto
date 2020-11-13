@@ -21,6 +21,13 @@ def readSerialPort(SP: object):
     readingsList = []
     while (True):
         reading = SP.readline()
+        # Para que lo pase a un string entendible
+        line = reading.decode("ascii")
+        # Otro de limpieza 
+        line=line.rstrip();
+        print(line)
+
+
         if reading == "Transmit":
             append = True
         elif reading == "Endtrans":
@@ -28,7 +35,7 @@ def readSerialPort(SP: object):
             break
         if append:
             readingsList.append(reading)
-        print(reading)
+        # print(reading)
     return readingsList
 
 def getRawData_HR():
@@ -57,9 +64,6 @@ def processData_Ox(data: list):
     
     return [user, str(todayDate + " " + time), oxigenLevel]
 
-def generateRandomRata():
-    pass 
-
 def realMain():
     
     serialPort = findArduino()
@@ -79,6 +83,9 @@ def realMain():
 
 
 if __name__ == "__main__":
-    realMain()
+    # realMain()
 
+    serialPort = findArduino()
+    
+    rawDataHR = readSerialPort(serialPort)
 

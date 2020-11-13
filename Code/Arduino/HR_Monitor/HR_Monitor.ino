@@ -1,16 +1,23 @@
 
+
 //Connections:
 byte HR_S = 0;
 
+//Global variables
+int hrReading;
+String line;
+
 void setup(){
     Serial.begin(9600);
+    line.reserve(50);
 }
 
 
-int hrReading;
 void loop(){
     hrReading = analogRead(HR_S);
-    Serial.println(hrReading);
-    delay(100);
-
+    line = hrReading;
+    line += "|Ms: ";
+    line += millis();
+    
+    Serial.println(line);
 }
