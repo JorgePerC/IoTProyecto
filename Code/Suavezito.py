@@ -39,7 +39,7 @@ time_smooth_av = [ i for i in range(0, len(data_series), sample_size)]
 
 plt.plot(data_series)
 plt.plot(data_series_smooth_ex)
-plt.plot(time_smooth_av , data_series_smooth_av )
+plt.plot(time_smooth_av, data_series_smooth_av)
 plt.plot()
 plt.ylabel("Data")
 

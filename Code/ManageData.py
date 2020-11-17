@@ -45,8 +45,8 @@ db =  DB("IoT_proyecto", save = True)
 
 # createUsers(db)
 
-# print("Acabo")
-# for _ in range(1000):
-#     inserReading_HR(db, sampleData_HR())
-#     inserReading_SaO2(db, sampleData_SaO2())
+print("Acabo")
+for _ in range(1000):
+    inserReading_HR(db, sampleData_HR())
+    inserReading_SaO2(db, sampleData_SaO2())
 print("Terminó")
