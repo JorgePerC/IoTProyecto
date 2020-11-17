@@ -25,13 +25,13 @@ def inserReading_SaO2(db: object, data: list):
     db.insertData("SaO2_Readings", ["id_user", "time", "sao2_reading"], data)
 
 def sampleData_HR():
-    return [ random.randint(0, 5), sampleData_Time(), random.randint(60, 100)]
+    return [ random.randint(1, 5), sampleData_Time(), random.randint(60, 100)]
 
 def sampleData_Time():
-    return "2020/"+ random.randint(1, 12)+ "/" + random.randint(1, 28)
+    return "2020/"+ str(random.randint(1, 12)) + "/" + str(random.randint(1, 28))
 
 def sampleData_SaO2():
-    return [ random.randint(0, 5), sampleData_Time(), random.randint(75, 100)]
+    return [ random.randint(1, 5), sampleData_Time(), random.randint(75, 100)]
 
 def createUsers(db):
     createUser(db, "Jorge", "Pérez", 19, "Few", "imagen.jpg", 93)
@@ -43,9 +43,10 @@ def createUsers(db):
 
 db =  DB("IoT_proyecto", save = True)
 
-createUsers(db)
-# db.closeConnection()
-print("Acabo")
-# for _ in range(0,1000):
+# createUsers(db)
+
+# print("Acabo")
+# for _ in range(1000):
 #     inserReading_HR(db, sampleData_HR())
 #     inserReading_SaO2(db, sampleData_SaO2())
+print("Terminó")

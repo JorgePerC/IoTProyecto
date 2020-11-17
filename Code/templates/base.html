@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    {% block link %}{% endblock link %}
+</head>
+<body>
+<!-- <nav class="topNavbar">
+{% for menuItem in session['menuList'] %}
+    {% if menuItem.label == 'Cuenta' %}
+        <li><a href="{{ menuItem.url }}" class="{{ menuItem.class }}">{% if 'user' in session %}{{ session['userId'] }}{% else %}{{ menuItem.label }}{% endif %}</a></li>
+    {% else %}
+        <li><a href="{{ menuItem.url }}" class="{{ menuItem.class }}">{{ menuItem.label }}</a></li>
+    {% endif %}
+{% endfor %}
+</nav> -->
+{% block content %}
+{% endblock content %}
+</body>
+</html>

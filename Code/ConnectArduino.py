@@ -30,6 +30,7 @@ def readSerialPort(SP: object):
 
         if reading == "Transmit":
             append = True
+            continue
         elif reading == "Endtrans":
             append = False
             break
@@ -49,6 +50,12 @@ def processData_HR(data: list):
     todayDate = date.today()
 
     hearRate = 0
+    
+    # Descartan 25 de las 10 lecturas
+    data = data[25:]
+
+    
+
     # Do something
     
     return [user, str(todayDate + " " + time), hearRate]
