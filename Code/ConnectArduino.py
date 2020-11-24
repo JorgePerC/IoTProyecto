@@ -51,7 +51,7 @@ def readSerialPort(SP: object):
 def processRawData (data: list):
     """
     Divide all the incoming data into separate lists
-    to be processed at with its especific algorithm
+    to be processed with its especific algorithm
     """
     listHR = []
     listSaO2 = []

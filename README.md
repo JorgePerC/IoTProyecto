@@ -7,13 +7,13 @@ Construir un sistema de Iot
 
 
 Pendientes:
-- [] Cambiar diagrama entidad relación
+- [x] Cambiar diagrama entidad relación
 
 - [] Añadir resto de la documentación al Git. (Completado parcialmente)
 
 - [] Levartar error al momento de dar consulta
 
-- [] Levartar error al momento de insertar datos
+- [x] Levartar error al momento de insertar datos
 
 ## Tips:
 
