@@ -13,4 +13,4 @@ SELECT users.name AS "Nombre", users.last_name AS "Apellido",
         sao2_readings.sao2_reading AS "Nivel Oxígeno", sao2_readings.time AS "Fecha"
 FROM iot_proyecto.users INNER JOIN iot_proyecto.sao2_readings
 ON iot_proyecto.users.id_user = iot_proyecto.sao2_readings.id_user
-ORDER BY sao2_readings.time DESC;
+ORDER BY ´view_hr_readings´sao2_readings.time DESC;
