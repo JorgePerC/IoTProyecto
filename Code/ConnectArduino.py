@@ -1,6 +1,8 @@
 import serial as ard
 import serial.tools.list_ports as portInterface
 from datetime import date, datetime
+from scipy.signal import find_peaks
+import matplotlib.pyplot as plt
 
 from MySQLCnnt import DB
 
@@ -29,19 +31,22 @@ def readSerialPort(SP: object):
     """
     append = False
     readingsList = []
+    print("Oprime el botón")
     while (True):
         reading = SP.readline()
         # Para que lo pase a un string entendible
         line = reading.decode("ascii")
         # Otro de limpieza 
         line = line.rstrip()
-        print(line)
+        # print(line)
 
         if "Transmit" in line:
             append = True
+            print("Inicio")
             continue
         elif "Endtrans" in line:
             append = False
+            print("Ya no recibe")
             break
         if append:
             readingsList.append(line)
@@ -59,8 +64,8 @@ def processRawData (data: list):
     # Sólo apendea los números
     for d in data:
         nums = getOnlyInts(d)
-        listHR.append((nums[0], nums[3]))
-        listSaO2.append((nums[1], nums[2], nums[3]))
+        listHR.append((nums["Hr"], nums["Milis"]))
+        listSaO2.append((nums["RedB"], nums["IrB"], nums["Milis"]))
 
     return (listHR, listSaO2)
 
@@ -75,7 +80,8 @@ def getOnlyInts(s: str):
     intRed = int(stringList[3])
     intIrB = int(stringList[5])
     intMs = int(stringList[7])
-    return [intHr, intIrB, intRed, intMs]
+    return {"Hr": intHr, "RedB": intRed, "IrB": intIrB, "Milis": intMs}
+    # return [intHr, intRed, intIrB, intMs]
 
 def smooth_curve_average(points, sample_size):
     """
@@ -103,12 +109,22 @@ def processData_HR(data: list):
     todayDate = date.today()
 
     hearRate = 0
-    
-    # Descartan 25 de las 100 lecturas
-    data = data[25:]
+    readingsValue = [i[0] for i in data]
+    milisValue = [i[1] for i in data]
 
+    nuevosValores= smooth_curve_average(readingsValue, 3)# UTIL
+
+    peaks = find_peaks(nuevosValores)[0] # UTIL POR SKIKIT
+
+    plt.plot(nuevosValores)
+    #print(peaks)
+    plt.scatter(peaks, [nuevosValores[j] for j in peaks], marker='+', c='Red')
+    
+    hearRate = (60000 * len(peaks)) / (milisValue[-1] - milisValue[0])# UTIL
+    print("HeartR", hearRate)
+    plt.show()
     # Do something
-    return [user, str(todayDate + " " + time), hearRate]
+    return [user, str(todayDate) + " " + time, hearRate]
 
 def processData_Ox(data: list):
     """
@@ -124,7 +140,7 @@ def processData_Ox(data: list):
     oxigenLevel = 0
     # Do something
     
-    return [user, str(todayDate + " " + time), oxigenLevel]
+    return [user, str(todayDate) + " " + time, oxigenLevel]
 
 def realMain():
     
@@ -132,13 +148,13 @@ def realMain():
     
     inputData = readSerialPort(serialPort)
     rawDataHR, rawDataSaO2 = processRawData(inputData)
-    
-    print(rawDataHR)
-    print(rawDataSaO2)
 
-    dataSaO2 = processData_Ox(rawDataSaO2)
+    # dataSaO2 = processData_Ox(rawDataSaO2)
 
-    dataHR = processData_Hr(rawDataSaO2)
+    dataHR = processData_HR(rawDataHR)
+
+    print("----------")
+    print(dataHR)
 
     # db =   DB("IoT_Proyecto", save = True)
 

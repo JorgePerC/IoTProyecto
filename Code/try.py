@@ -249,10 +249,10 @@ def analisisHR():
     '''for i in range(0, 96):
         valores.append((hrValues[i]+hrValues[i+1]+hrValues[i+2])/3);
         valoresMili.append((miliValues[i]+miliValues[i+1]+miliValues[i+2])/3)'''
-    nuevosValores1= smooth_curve_test(hrValues, 15)
-    nuevosValores=[i for (i,j) in nuevosValores1 ]
+    nuevosValores1= smooth_curve_test(hrValues, 15)# UTIL
+    nuevosValores=[i for (i,j) in nuevosValores1 ]# UTIL
     len(nuevosValores);
-    peaks = find_peaks(nuevosValores)[0]
+    peaks = find_peaks(nuevosValores)[0]# UTIL
     
     plt.plot(nuevosValores);
     #print(peaks)
@@ -266,7 +266,7 @@ def analisisHR():
         palpitaciones.append(miliValues[peaks[i+1]]-miliValues[peaks[i]]);
     print(palpitaciones)
     tiempoPromedio=sum(palpitaciones)/len(palpitaciones)
-    valorHR=(60000*len(peaks))/(miliValues[-1]-miliValues[0])
+    valorHR=(60000*len(peaks))/(miliValues[-1]-miliValues[0])# UTIL
     print("duracion:", miliValues[-1]-miliValues[0], valorHR)
 
 ser=serial.Serial("COM5", 9600);

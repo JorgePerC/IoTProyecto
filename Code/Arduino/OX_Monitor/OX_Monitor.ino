@@ -69,7 +69,7 @@ void loop() {
   if (buttonState != lastButtonState){
     if (buttonState == LOW){
       Serial.println("Transmit");
-      readings = 100; 
+      readings = 500; // NUMERO DE SAMPLES 
     }
   }
   // Para cambiar lo del button state
