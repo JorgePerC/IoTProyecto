@@ -4,6 +4,8 @@ from datetime import date, datetime
 from scipy.signal import find_peaks
 import matplotlib.pyplot as plt
 
+from progress.spinner import PixelSpinner
+
 from MySQLCnnt import DB
 
 def findArduino():
@@ -29,9 +31,14 @@ def readSerialPort(SP: object):
     Returing a list with all the readings necesary
     to give reliabale measurements 
     """
+    # Spinner: 
+    spinner = PixelSpinner("Recibiendo datos ")
+    print("",  end="\r")
+    # print ("\033[A                             \033[A") #,  end="\r"
+
     append = False
     readingsList = []
-    print("Oprime el botón")
+    print("Oprime el botón ")
     while (True):
         reading = SP.readline()
         # Para que lo pase a un string entendible
@@ -46,11 +53,13 @@ def readSerialPort(SP: object):
             continue
         elif "Endtrans" in line:
             append = False
+            print("")
             print("Ya no recibe")
             break
         if append:
+            spinner.next()
             readingsList.append(line)
-
+    
     return readingsList
 
 def processRawData (data: list):
@@ -148,10 +157,6 @@ def processData_Ox(data: list):
     IRmax = max(readingsIrValue)
     IRmin = min(readingsIrValue)
 
-    print(REDmax)
-    print(REDmin)
-    print(IRmax)
-    print(IRmin)
     R = ( (REDmax-REDmin) / REDmin ) / ((IRmax-IRmin) / IRmin)
     
     k = -25
@@ -177,6 +182,8 @@ def realMain():
     print("----------")
     print(dataHR)
     print(dataSaO2)
+    print("----------")
+
     # db =   DB("IoT_Proyecto", save = True)
 
     # db.insertData("HR_Readings", ["User", "Time", "HR"], dataHR)

@@ -10,8 +10,13 @@ byte sensorHR;
 
 String infoToPrint;
 int readings;
+
 bool buttonState;
 bool lastButtonState;
+
+bool buttonState2;
+bool lastButtonState2;
+byte user;
 
 void setup() {
   Serial.begin(9600); // initialize serial communication at 115200 bits per second:
@@ -33,11 +38,15 @@ void setup() {
   infoToPrint.reserve(50);
 
   pinMode(4, INPUT);
-  //pinMode(5, INPUT);
+  pinMode(5, INPUT);
   readings = -1;
 
   buttonState = false;
   lastButtonState = false;
+
+  buttonState2 = false;
+  lastButtonState2 = false;
+  user = 0;
 }
 
 void readSensors(){
@@ -62,14 +71,28 @@ void readSensors(){
 
    Serial.println(infoToPrint);
 }
-
+void cambiarUsuario(){
+  buttonState2 = digitalRead(5);
+    if (buttonState2 != lastButtonState2){
+      if (buttonState2 == LOW){
+        user++;
+        user = (5 < user) ? 0 : user;
+      }
+    }
+    // Para cambiar lo del button state
+    lastButtonState2 = buttonState2;
+}
 void loop() {
+  cambiarUsuario();
   //Iniciar lectura con botón
   buttonState = digitalRead(4);
   if (buttonState != lastButtonState){
     if (buttonState == LOW){
       Serial.println("Transmit");
       readings = 500; // NUMERO DE SAMPLES 
+      infoToPrint = "User: ";
+      infoToPrint += user;
+      Serial.println(infoToPrint);
     }
   }
   // Para cambiar lo del button state
