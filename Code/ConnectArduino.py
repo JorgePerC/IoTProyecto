@@ -67,11 +67,14 @@ def processRawData (data: list):
     Divide all the incoming data into separate lists
     to be processed with its especific algorithm
     """
-    listHR = []
-    listSaO2 = []
+    #Obtain the user
+    u = data[0].split()
 
-    # Sólo apendea los números
-    for d in data:
+    listHR = [int(u[1])]
+    listSaO2 = [int(u[1])]
+
+    # Sólo apendea los números del segundo al final
+    for d in data[1:]:
         nums = getOnlyInts(d)
         listHR.append((nums["Hr"], nums["Milis"]))
         listSaO2.append((nums["RedB"], nums["IrB"], nums["Milis"]))
@@ -112,27 +115,26 @@ def processData_HR(data: list):
     a list ready to be inserted into the DB
     with the final HR reading
     """
-    user = ""
+    user = data[0]
     now = datetime.now()
     time = now.strftime("%H:%M:%S")
     todayDate = date.today()
 
     hearRate = 0
-    readingsValue = [i[0] for i in data]
-    milisValue = [i[1] for i in data]
+    readingsValue = [i[0] for i in data[1:]]
+    milisValue = [i[1] for i in data[1:]]
 
     nuevosValores= smooth_curve_average(readingsValue, 3)# UTIL
 
     peaks = find_peaks(nuevosValores)[0] # UTIL POR SKIKIT
 
-    plt.plot(nuevosValores)
-    #print(peaks)
-    plt.scatter(peaks, [nuevosValores[j] for j in peaks], marker='+', c='Red')
-    
+    # plt.plot(nuevosValores)
+    # print(peaks)
+    # plt.scatter(peaks, [nuevosValores[j] for j in peaks], marker='+', c='Red')
+    # plt.show()
+
     hearRate = (60000 * len(peaks)) / (milisValue[-1] - milisValue[0])# UTIL
-    print("HeartR", hearRate)
-    plt.show()
-    # Do something
+    
     return [user, str(todayDate) + " " + time, hearRate]
 
 def processData_Ox(data: list):
@@ -141,16 +143,16 @@ def processData_Ox(data: list):
     a list ready to be inserted into the DB
     with the final SaO2 reading
     """
-    user = ""
+    user = data[0]
     now = datetime.now()
     time = now.strftime("%H:%M:%S")
     todayDate = date.today()
 
     oxigenLevel = 0
     
-    readingsRedValue = [i[0] for i in data]
-    readingsIrValue = [i[1] for i in data]
-    milisValue = [i[2] for i in data]
+    readingsRedValue = [i[0] for i in data[1:]]
+    readingsIrValue = [i[1] for i in data[1:]]
+    milisValue = [i[2] for i in data[1:]]
     
     REDmax = max(readingsRedValue)
     REDmin = min(readingsRedValue)
