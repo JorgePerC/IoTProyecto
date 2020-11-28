@@ -129,7 +129,6 @@ def processData_HR(data: list):
     peaks = find_peaks(nuevosValores)[0] # UTIL POR SKIKIT
 
     # plt.plot(nuevosValores)
-    # print(peaks)
     # plt.scatter(peaks, [nuevosValores[j] for j in peaks], marker='+', c='Red')
     # plt.show()
 
