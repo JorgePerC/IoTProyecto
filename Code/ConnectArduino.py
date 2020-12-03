@@ -185,18 +185,15 @@ def realMain():
     print(dataSaO2)
     print("----------")
 
-    # db =   DB("IoT_Proyecto", save = True)
+    #Insert into DB
+    db =   DB("IoT_Proyecto", save = True)
 
-    # db.insertData("HR_Readings", ["User", "Time", "HR"], dataHR)
+    db.insertData("HR_Readings", ["id_user", "time", "hr_reading"], dataHR)
 
-    # db.insertData("SaO2_Readings", ["User", "Time", "SaO2"], dataSaO2)
+    db.insertData("SaO2_Readings", ["id_user", "time", "sao2_reading"], dataSaO2)
 
 
 
 if __name__ == "__main__":
     realMain()
-
-    # serialPort = findArduino()
-    
-    # rawDataHR = readSerialPort(serialPort)
 

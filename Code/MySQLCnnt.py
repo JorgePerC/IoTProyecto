@@ -64,6 +64,11 @@ class DB:
 
     
     def getQuerryRes(self, query: str, param = ()):
+        """
+        Method to read data from the Db, and posibly 
+        add some parameters. The querry should be in
+        MySQL format.
+        """
         # If there are no parameters, we skip that param
         if (len(param) == 0):
             try:
@@ -79,7 +84,12 @@ class DB:
         return self.cursor
 
     def insertData(self, table: str, columns : list, values: list):
-        
+        """
+        Method to call easier "Insert into"
+        takes two lists as imputs, columns, should have the name
+        for the columns you want to insert into, and values is 
+        self explanatory. 
+        """
         if(len(columns) == 0):
             pass
         # Por si no coinciden los parámetros:
@@ -102,14 +112,21 @@ class DB:
                 self.cnx.commit()
         except mysql.connector.Error as err:
             print(err)
-    def delete(self):
-        pass
 
     def changeData(self, table: str, column: list, values: list, *whereArgs):
+        """
+        TODO: Complete this method
+        Method to Update data.
+        I believe is working, but need to test it
+        """
         query = "UPDATE {} as {}".format(table,  str(whereArgs)[1:-1])
         pass
 
     def closeConnection(self):
+        """
+        TODO: Depreciate
+        Aditional destructor
+        """
         try:
             self.cnx.close()
         except mysql.connector.Error as err:
