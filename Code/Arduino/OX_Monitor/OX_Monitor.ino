@@ -46,7 +46,7 @@ void setup() {
 
   buttonState2 = false;
   lastButtonState2 = false;
-  user = 0;
+  user = 1;
 }
 
 void readSensors(){
@@ -76,7 +76,7 @@ void cambiarUsuario(){
     if (buttonState2 != lastButtonState2){
       if (buttonState2 == LOW){
         user++;
-        user = (5 < user) ? 0 : user;
+        user = (6 < user) ? 1 : user;
       }
     }
     // Para cambiar lo del button state

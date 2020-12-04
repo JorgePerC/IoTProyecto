@@ -11,7 +11,7 @@ Pendientes:
 
 - [] Añadir resto de la documentación al Git. (Completado parcialmente)
 
-- [] Levartar error al momento de dar consulta
+- [x] Levartar error al momento de dar consulta
 
 - [x] Levartar error al momento de insertar datos
 
@@ -58,5 +58,22 @@ comando en tu terminal: `<mysqldump -u root -p db_name > filename.sql>`
      alt="Diagrama entidad relación Reto"
      style="width: 80%; margin: 0 10%;"/>
 
+## Resultados del proyecto:
 
+### Dashboard Inteligente:
+<img src="Documentación/Dashboard1.png"
+     alt="Dashboard vista Doctor"
+     style="width: 80%; margin: 0 10%;"/>
+
+<img src="Documentación/Dashboard2.png"
+     alt="Dashboard vista paciente"
+     style="width: 80%; margin: 0 10%;"/>
+
+### Contrucción física:
+<img src="Documentación/Construccion.jpg"
+     alt="Dashboard vista Doctor"
+     style="width: 80%; margin: 0 10%;"/>
+
+### Video de funcionamiento: 
+![](https://youtu.be/St5IPdoLo3w)
 
