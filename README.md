@@ -75,5 +75,9 @@ comando en tu terminal: `<mysqldump -u root -p db_name > filename.sql>`
      style="width: 80%; margin: 0 10%;"/>
 
 ### Video de funcionamiento: 
+
+Video en YouTube: https://youtu.be/St5IPdoLo3w
+
 ![](https://youtu.be/St5IPdoLo3w)
+![](https://youtu.be/St5IPdoLo3w){width="90%"}
 
