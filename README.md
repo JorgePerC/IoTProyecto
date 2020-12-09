@@ -9,7 +9,7 @@ Construir un sistema de Iot
 Pendientes:
 - [x] Cambiar diagrama entidad relación
 
-- [] Añadir resto de la documentación al Git. (Completado parcialmente)
+- [x] Añadir resto de la documentación al Git.
 
 - [x] Levartar error al momento de dar consulta
 
@@ -78,6 +78,4 @@ comando en tu terminal: `<mysqldump -u root -p db_name > filename.sql>`
 
 Video en YouTube: https://youtu.be/St5IPdoLo3w
 
-![](https://youtu.be/St5IPdoLo3w)
-![](https://youtu.be/St5IPdoLo3w){width="90%"}
 
